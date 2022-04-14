@@ -1,0 +1,102 @@
+﻿@model Virtuous.Web.Models.Donation
+
+<h4>You are an amazing human being for donating.</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Donate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row gy-2">
+                <div class="col-3">
+                    <input asp-for="Donor.FirstName" class="form-control" />
+                    <span asp-validation-for="Donor.FirstName" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <input asp-for="Donor.LastName" class="form-control" />
+                    <span asp-validation-for="Donor.LastName" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <input asp-for="Donor.Email" class="form-control" />
+                    <span asp-validation-for="Donor.Email" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <input asp-for="Donor.Address.StreetAddress" class="form-control" />
+                </div>
+                <div class="col-4">
+                    <input asp-for="Donor.Address.City" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <input asp-for="Donor.Address.State" class="form-control" />
+                    <span asp-validation-for="Donor.Address.State" class="text-danger"></span>
+                </div>
+                <div class="col-4">
+                    <input asp-for="Donor.Address.Country" class="form-control" />
+                    <span asp-validation-for="Donor.Address.Country" class="text-danger"></span>
+                </div>
+                <div class="col-2">
+                    <input asp-for="Donor.Address.ZipCode" class="form-control" />
+                    <span asp-validation-for="Donor.Address.ZipCode" class="text-danger"></span>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CreditCard.CreditCardNum" class="form-control" />
+                    <span asp-validation-for="CreditCard.CreditCardNum" class="text-danger"></span>
+                </div>
+                <div class="col-2">
+                    <input asp-for="CreditCard.CVV" class="form-control" />
+                    <span asp-validation-for="CreditCard.CVV" class="text-danger"></span>
+                </div>
+                <div class="col-2">
+                    <input asp-for="CreditCard.ExpirationDate" class="form-control" />
+                    <span asp-validation-for="CreditCard.ExpirationDate" class="text-danger"></span>
+                </div>
+                <div class="col-4">
+                    <input 
+                        asp-for="Amount" 
+                        class="form-control" 
+                        id="DonationAmount" 
+                        onchange="UpdateCost()" 
+                    />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <p class="col-form-label">
+                        Costs($):
+                        <span id="Costs"></span>
+                    </p>
+                </div>
+                <div class="col-3">
+                    <p class="col-form-label">
+                        Total Donation($):
+                        <span id="TotalDonation"></span>
+                    </p>
+                </div>
+                <div class="col-2 col-form-label">
+                    <input 
+                        asp-for="IsCostCovered" 
+                        type="checkbox" 
+                        id="CostCoveredChk" 
+                        class="form-check-input" 
+                        onchange="UpdateTotalDonation()" 
+                    />
+                    <label asp-for="IsCostCovered" class="form-check-label"></label>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px;">
+                <div class="col">
+                    <input type="submit" value="Donate" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="margin-top: 10px;">
+    <a asp-action="Index">Back to all donations</a>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
